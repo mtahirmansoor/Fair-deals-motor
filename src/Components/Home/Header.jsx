@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import Image1 from "../../assets/Logo/Logow.png";
-import Image2 from "../../assets/Header/Image2.jpg";
-import Image3 from "../../assets/Header/Image3.jpg";
+import Image2 from "../../assets/Header/image2.jpg";
+import Image3 from "../../assets/Header/image3.jpg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons for arrows
 // Custom arrow component for the left arrow
 const PrevArrow = ({ style, onClick }) => (
