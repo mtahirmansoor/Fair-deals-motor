@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { FaTiktok } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa"; // Import Facebook icon
-import { FaYoutube } from "react-icons/fa"; // Import YouTube icon
+import React from "react";
+import { FaTiktok, FaFacebook, FaYoutube } from "react-icons/fa";
 import Logo from "../assets/Logo/Logow.png";
+
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-10">
@@ -13,8 +12,6 @@ const Footer = () => {
             <img src={Logo} alt="Logo" className="w-[97px] h-[87px]" />
           </a>
         </div>
-
-        {/* Links Section */}
 
         {/* Social Media Links */}
         <div className="hidden md:flex items-center space-x-4">
@@ -45,11 +42,24 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Contact Information Section */}
+      <div className="text-center mt-4">
+        <p>
+          <a href="mailto:Fairdealsmotor@gmail.com" className="text-blue-400 hover:underline">
+            Fairdealsmotor@gmail.com
+          </a>
+        </p>
+        <p>
+          <a href="tel:+447398524761" className="text-blue-400 hover:underline">
+            +44 7398 524761
+          </a>
+        </p>
+      </div>
+
       {/* Copyright Section */}
       <div className="text-center mt-4 border-t border-gray-700 pt-4">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Fair Deals Motors. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} Fair Deals Motors. All rights reserved.
         </p>
       </div>
     </footer>

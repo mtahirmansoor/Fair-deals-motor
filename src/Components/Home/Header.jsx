@@ -3,7 +3,9 @@ import Slider from "react-slick";
 import Image1 from "../../assets/Logo/Logow.png";
 import Image2 from "../../assets/Header/image2.jpg";
 import Image3 from "../../assets/Header/image3.jpg";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons for arrows
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaCar } from "react-icons/fa"; // Importing car icon
+
 // Custom arrow component for the left arrow
 const PrevArrow = ({ style, onClick }) => (
   <div
@@ -26,9 +28,9 @@ const NextArrow = ({ style, onClick }) => (
   </div>
 );
 
-// Reusable Weekly Schedule Component with responsive design
+// Reusable Weekly Schedule Component
 const WeeklySchedule = () => (
-  <div className="absolute bottom-4 left-4 bg-gray-700 bg-opacity-75 p-2 sm:p-3 md:p-4 text-white rounded-lg w-52 sm:w-60 md:w-64">
+  <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-75 p-4 text-white">
     <h3 className="text-sm sm:text-lg md:text-lg font-bold text-center">
       Garage Timings
     </h3>
@@ -65,6 +67,14 @@ const WeeklySchedule = () => (
   </div>
 );
 
+const Tagline = () => (
+  <div className="absolute top-4 right-4 bg-black bg-opacity-75 p-3 text-white rounded-lg flex items-center">
+    <span className="font-bold text-lg flex items-center">
+      We Buy <FaCar className="text-2xl mx-2" /> for £
+    </span>
+  </div>
+);
+
 const Header = () => {
   const settings = {
     dots: true,
@@ -81,15 +91,15 @@ const Header = () => {
   return (
     <header className="relative w-full h-screen overflow-hidden">
       <Slider {...settings} className="h-full">
-        {/* relative h-screen flex justify-center items-center */}
-        <div className="relative  bg-black h-screen flex justify-center items-center">
-          <img
-            src={Image1}
-            alt="Slide 1"
-            className="h-screen flex items-center justify-center mx-auto" // Ensures the image is centered
-          />
-          <WeeklySchedule />
-        </div>
+      <div className="relative h-screen w-full overflow-hidden">
+  <img
+    src={Image1}
+    alt="Slide 1"
+    className="absolute inset-0 w-full h-full object-cover bg-black" // Make sure the image fills the container
+  />
+  <Tagline />
+  <WeeklySchedule />
+</div>
 
         <div className="relative h-screen">
           <img
@@ -97,6 +107,7 @@ const Header = () => {
             alt="Slide 2"
             className="w-full h-full object-cover"
           />
+          <Tagline />
           <WeeklySchedule />
         </div>
         <div className="relative h-screen">
@@ -105,6 +116,7 @@ const Header = () => {
             alt="Slide 3"
             className="w-full h-full object-cover"
           />
+          <Tagline />
           <WeeklySchedule />
         </div>
       </Slider>

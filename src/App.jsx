@@ -12,6 +12,7 @@ import Contact from "./Components/Home/Contact";
 import Login from './Components/Home/Login';
 import Stock from "./Components/Home/Stock";
 import Finance from "./Components/Home/Finance";
+import Warranty from "./Components/Home/Warranty";
 // Admin side
 import AddCar from "./Components/Admin/AddCars";
 import CarList from "./Components/Admin/CarsList";
@@ -50,7 +51,8 @@ function App() {
           <Route path="/finance" element={<Finance />} />
           <Route path="/login" element={<Login />} />
           <Route path="/stock" element={<Stock />} /> {/* Added Stock route */}
-          
+          <Route path="/warranty" element={<Warranty />} /> {/* Added Stock route */}
+
           <Route
             path="/admin"
             element={
