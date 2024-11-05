@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/Logow.png"; // Update with your actual logo path
+import Image from "../../assets/Header/image2.jpg"; // Path to your image
 
 const Finance = () => {
   return (
     <div className="container mx-auto p-4">
       {/* Logo Section */}
       <div className="flex justify-center mb-6">
-        <img src={Logo} alt="Company Logo" className="h-30" />{" "}
+        <img src={Logo} alt="Company Logo" className="h-30" />
         {/* Adjust height as needed */}
       </div>
 
@@ -22,11 +23,16 @@ const Finance = () => {
 
       {/* Location Section */}
       <div className="text-center mb-4">
-        
+        {/* Location Image */}
+        <div className="mb-4">
+          <img
+            src={Image} // Your image path
+            alt="Image"
+            className="mx-auto w-full max-w-md rounded-md" // Adjust styling as needed
+          />
+        </div>
 
-      {/* Services Section */}
-      
-    
+        {/* Location Information */}
         <h3 className="text-xl font-medium">Location</h3>
         <h2>20 Harding Road Woodley, Reading Berkshire RG5 3ER</h2>
         <div className="w-full h-64">
