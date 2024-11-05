@@ -30,25 +30,7 @@ const Stock = () => {
     fetchCars();
   }, []);
 
-  const handleDelete = async (carId) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/cars/${carId}`);
-      setCars(cars.filter((car) => car.id !== carId));
-    } catch (err) {
-      console.error("Error deleting car:", err);
-    }
-  };
-
-  if (loading)
-    return (
-      <div className="text-center text-xl font-semibold mt-10">Loading...</div>
-    );
-  if (error)
-    return (
-      <div className="text-center text-red-500 text-xl mt-10">
-        Error: {error}
-      </div>
-    );
+ 
 
   return (
     <div className="container mx-auto p-6">
@@ -82,7 +64,7 @@ const Stock = () => {
               </h2>
               <p className="text-gray-600 mt-1">
                 Price:{" "}
-                <span className="text-green-500 font-semibold">${car.price}</span>
+                <span className="text-green-500 font-semibold">£{car.price}</span>
               </p>
               <p className="text-gray-600">Mileage: {car.mileage} miles</p>
               <p className="text-gray-600">Color: {car.color}</p>

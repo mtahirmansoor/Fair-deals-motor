@@ -68,10 +68,11 @@ const WeeklySchedule = () => (
 );
 
 const Tagline = () => (
-  <div className="absolute top-4 right-4 bg-black bg-opacity-75 p-3 text-white rounded-lg flex items-center">
-    <span className="font-bold text-lg flex items-center">
-      We Buy <FaCar className="text-2xl mx-2" /> for £
+  <div className="absolute top-4 right-4 bg-black bg-opacity-75 p-3 text-white rounded-lg flex flex-col items-center">
+    <span className="font-bold text-md flex items-center">
+    We Buy <FaCar className="text-2xl mx-2" /> 
     </span>
+    <span className="font-bold text-md mt-1">for Affordable £</span>
   </div>
 );
 
@@ -91,15 +92,15 @@ const Header = () => {
   return (
     <header className="relative w-full h-screen overflow-hidden">
       <Slider {...settings} className="h-full">
-      <div className="relative h-screen w-full overflow-hidden">
-  <img
-    src={Image1}
-    alt="Slide 1"
-    className="absolute inset-0 w-full h-full object-cover bg-black" // Make sure the image fills the container
-  />
-  <Tagline />
-  <WeeklySchedule />
-</div>
+        <div className="relative h-screen w-full overflow-hidden">
+          <img
+            src={Image1}
+            alt="Slide 1"
+            className="absolute inset-0 w-full h-full object-cover bg-black" // Make sure the image fills the container
+          />
+          <Tagline />
+          <WeeklySchedule />
+        </div>
 
         <div className="relative h-screen">
           <img
