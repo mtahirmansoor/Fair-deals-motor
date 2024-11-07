@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTiktok, FaFacebook, FaYoutube } from "react-icons/fa";
-import Logo from "../assets/Logo/Logow.png";
+import Logo from "../assets/Logo/Logo1.png";
 
 const Footer = () => {
   return (

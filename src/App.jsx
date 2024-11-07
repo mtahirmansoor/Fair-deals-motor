@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -14,7 +14,9 @@ import Stock from "./Components/Home/Stock";
 import Finance from "./Components/Home/Finance";
 import Warranty from "./Components/Home/Warranty";
 import SellYourCar from "./Components/Home/SellYourCar";
+import MoreInfo from "./Components/Home/MoreInfo";
 // Admin side
+
 import AddCar from "./Components/Admin/AddCars";
 import CarList from "./Components/Admin/CarsList";
 import EditCar from "./Components/Admin/EditCars";
@@ -43,7 +45,7 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-
+        
         <Routes>
           {/* Home route to display Header and About */}
           <Route path="/" element={<><Header /><About /></>} />
@@ -54,10 +56,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/stock" element={<Stock />} /> {/* Added Stock route */}
           <Route path="/warranty" element={<Warranty />} /> {/* Added Stock route */}
-
+          <Route path="/MoreInfo/:id" element={<MoreInfo />} /> {/* Added Stock route */}
           <Route
-            path="/admin"
-            element={
+          path="/admin"
+          element={
+            // If not logged in, redirect to the login page
+            !localStorage.getItem("loggedIn") ? (
+              <Navigate to="/login" />
+            ) : (
               <>
                 <button
                   onClick={toggleView}
@@ -74,8 +80,10 @@ function App() {
                   <CarList onEdit={setCarToEdit} /> // Show Car List if no car is being edited
                 )}
               </>
-            }
-          />
+            )
+          }
+        />
+         <Route path="/" element={<Navigate to="/login" />} />
           
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<h1>404 Not Found</h1>} /> {/* Added 404 route */}

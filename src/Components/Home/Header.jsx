@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import Image1 from "../../assets/Logo/Logow.png";
+import Image1 from "../../assets/Logo/Logow.jpg";
 import Image2 from "../../assets/Header/image2.jpg";
 import Image3 from "../../assets/Header/image3.jpg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -70,7 +70,7 @@ const WeeklySchedule = () => (
 const Tagline = () => (
   <div className="absolute top-4 right-4 bg-black bg-opacity-75 p-3 text-white rounded-lg flex flex-col items-center">
     <span className="font-bold text-md flex items-center">
-    We Buy <FaCar className="text-2xl mx-2" /> 
+      We Buy <FaCar className="text-2xl mx-2" />
     </span>
     <span className="font-bold text-md mt-1">for Affordable £</span>
   </div>
@@ -87,6 +87,29 @@ const Header = () => {
     autoplaySpeed: 3000,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -96,7 +119,7 @@ const Header = () => {
           <img
             src={Image1}
             alt="Slide 1"
-            className="absolute inset-0 w-full h-full object-cover bg-black" // Make sure the image fills the container
+            className="absolute inset-0 w-full h-full object-cover bg-black" // Ensures image covers the entire area
           />
           <Tagline />
           <WeeklySchedule />

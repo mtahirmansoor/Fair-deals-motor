@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/Logo/Logow.png"; // Update with your actual logo path
+import Logo from "../../assets/Logo/Logow.jpg"; // Update with your actual logo path
 import Image from "../../assets/Header/image2.jpg"; // Path to your image
 
 const Finance = () => {
@@ -8,7 +8,7 @@ const Finance = () => {
     <div className="container mx-auto p-4">
       {/* Logo Section */}
       <div className="flex justify-center mb-6">
-        <img src={Logo} alt="Company Logo" className="h-30" />
+        <img src={Logo} alt="Company Logo" className="h-25" />
         {/* Adjust height as needed */}
       </div>
 

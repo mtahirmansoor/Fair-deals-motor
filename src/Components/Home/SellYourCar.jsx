@@ -1,269 +1,284 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
 
 const SellYourCar = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    makeModel: '',
-    registration: '',
-    mileage: '',
-    transmission: '',
-    fuelType: '',
-    exteriorColor: '',
-    interiorColor: '',
-    fullServiceHistory: '',
-    condition: '',
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [registration, setRegistration] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [transmission, setTransmission] = useState("");
+  const [fuelType, setFuelType] = useState("");
+  const [exteriorColor, setExteriorColor] = useState("");
+  const [interiorColor, setInteriorColor] = useState("");
+  const [fullServiceHistory, setFullServiceHistory] = useState("yes"); // Default to 'yes'
+  const [carcondition, setCarCondition] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [error, setError] = useState("");
 
-  const handleCheckboxChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: prev[name] === value ? '' : value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform form submission logic, e.g., sending data to the backend
-    console.log(formData);
 
-    // Example: You can use fetch or axios to send the data to the backend
-    // fetch('/your-endpoint', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData),
-    // });
+    // Combine make and model into one field
+    const makeModel = `${make} ${model}`;
+
+    // Create the data object to send as JSON
+    const newCar = {
+      name,
+      email,
+      phone,
+      address,
+      makeModel,
+      registration,
+      mileage: Number(mileage), // Convert mileage to a number
+      transmission,
+      fuelType,
+      exteriorColor,
+      interiorColor,
+      fullServiceHistory,
+      carcondition,
+    };
+
+    console.log("Form Data:", newCar); // Log the object to inspect the data
+
+    try {
+      // Send the data as JSON to the server
+      const response = await axios.post(
+        "http://localhost:5000/api/sellCar",
+        newCar,
+        {
+          headers: {
+            "Content-Type": "application/json", // Set content type to JSON
+          },
+        }
+      );
+
+      // Handle success response
+      alert(` information sent to Fair-deals-Motor successfully! `);
+      resetFormFields(); // Reset form fields after successful submission
+    } catch (error) {
+      // Handle error response
+      console.error(
+        "Error adding car:",
+        error.response ? error.response.data : error.message
+      );
+      setError(
+        error.response
+          ? error.response.data.message
+          : "Error while submitting the form"
+      );
+    }
+  };
+  const resetFormFields = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAddress("");
+    setMake("");
+    setModel("");
+    setRegistration("");
+    setMileage("");
+    setTransmission("");
+    setFuelType("");
+    setExteriorColor("");
+    setInteriorColor("");
+    setFullServiceHistory("yes");
+    setCarCondition("");
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-center mb-4">Sell Your Car</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Personal Information */}
-        <div className="space-y-4">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-2xl p-8 bg-white rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          SELL YOUR CAR
+        </h2>
+        <hr />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Name, Email, Phone, and Address */}
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">YOUR INFORMATION</h1>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
+              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
             <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              type="tel"
+              placeholder="Phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               required
+              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            <textarea
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
+              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows="3"
             />
           </div>
-        </div>
-
-        {/* Vehicle Details */}
-        <div className="mt-8 space-y-4">
-          <h3 className="text-xl font-semibold">Your Vehicle Details</h3>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Make & Model</label>
-            <input
-              type="text"
-              name="makeModel"
-              value={formData.makeModel}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Registration</label>
-            <input
-              type="text"
-              name="registration"
-              value={formData.registration}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Mileage</label>
-            <input
-              type="number"
-              name="mileage"
-              value={formData.mileage}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          {/* Transmission */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Transmission</label>
-            <div className="flex gap-4">
-              <div>
-                <input
-                  type="checkbox"
-                  name="transmission"
-                  value="auto"
-                  checked={formData.transmission === 'auto'}
-                  onChange={handleCheckboxChange}
-                  id="auto"
-                />
-                <label htmlFor="auto" className="ml-2 text-sm text-gray-700">Automatic</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="transmission"
-                  value="manual"
-                  checked={formData.transmission === 'manual'}
-                  onChange={handleCheckboxChange}
-                  id="manual"
-                />
-                <label htmlFor="manual" className="ml-2 text-sm text-gray-700">Manual</label>
-              </div>
-            </div>
-          </div>
-
-          {/* Fuel Type */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Fuel Type</label>
-            <select
-              name="fuelType"
-              value={formData.fuelType}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            >
-              <option value="">Select Fuel Type</option>
-              <option value="petrol">Petrol</option>
-              <option value="diesel">Diesel</option>
-              <option value="electric">Electric</option>
-              <option value="hybrid">Hybrid</option>
-            </select>
-          </div>
-
-          {/* Exterior and Interior Color */}
-          <div className="grid grid-cols-2 gap-4">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">CAR INFORMATION</h1>
+          {/* Make and Model */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Exterior Color</label>
               <input
                 type="text"
-                name="exteriorColor"
-                value={formData.exteriorColor}
-                onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                placeholder="Make"
+                value={make}
+                onChange={(e) => setMake(e.target.value)}
                 required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Interior Color</label>
               <input
                 type="text"
-                name="interiorColor"
-                value={formData.interiorColor}
-                onChange={handleChange}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                placeholder="Model"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
                 required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
 
-          {/* Full Service History */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Full Service History</label>
-            <div className="flex gap-4">
-              <div>
-                <input
-                  type="checkbox"
-                  name="fullServiceHistory"
-                  value="yes"
-                  checked={formData.fullServiceHistory === 'yes'}
-                  onChange={handleCheckboxChange}
-                  id="yes"
-                />
-                <label htmlFor="yes" className="ml-2 text-sm text-gray-700">Yes</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="fullServiceHistory"
-                  value="no"
-                  checked={formData.fullServiceHistory === 'no'}
-                  onChange={handleCheckboxChange}
-                  id="no"
-                />
-                <label htmlFor="no" className="ml-2 text-sm text-gray-700">No</label>
-              </div>
+          {/* Registration, Mileage, Transmission */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <input
+                type="text"
+                placeholder="Registration"
+                value={registration}
+                onChange={(e) => setRegistration(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Mileage"
+                value={mileage}
+                onChange={(e) => setMileage(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <select
+                value={transmission}
+                onChange={(e) => setTransmission(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Transmission</option>
+                <option value="auto">Automatic</option>
+                <option value="manual">Manual</option>
+              </select>
+            </div>
+            <div>
+              <select
+                value={fuelType}
+                onChange={(e) => setFuelType(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Fuel Type</option>
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+                <option value="electric">Electric</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
             </div>
           </div>
 
-          {/* Condition */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Condition</label>
-            <select
-              name="condition"
-              value={formData.condition}
-              onChange={handleChange}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            >
-              <option value="">Select Condition</option>
-              <option value="new">New</option>
-              <option value="good">Good</option>
-              <option value="fair">Fair</option>
-              <option value="poor">Poor</option>
-            </select>
+          {/* Colors, Full Service History, Condition */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <input
+                type="text"
+                placeholder="Exterior Color"
+                value={exteriorColor}
+                onChange={(e) => setExteriorColor(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Interior Color"
+                value={interiorColor}
+                onChange={(e) => setInteriorColor(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="mt-6 w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <select
+                value={fullServiceHistory}
+                onChange={(e) => setFullServiceHistory(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Full Service History</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <select
+                value={carcondition}
+                onChange={(e) => setCarCondition(e.target.value)}
+                required
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Condition</option>
+                <option value="new">New</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Image Upload */}
+
+          <button
+            type="submit"
+            className="w-full p-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

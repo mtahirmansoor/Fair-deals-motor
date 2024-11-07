@@ -1,12 +1,12 @@
 import React from 'react';
-import Logo from '../../assets/Logo/Logow.png'; // Adjust the path as needed
+import Logo from '../../assets/Logo/Logow.jpg'; // Adjust the path as needed
 
 const Warranty = () => {
   return (
     <div className="container mx-auto p-4">
       {/* Logo at the Top */}
       <div className="flex justify-center mb-6">
-        <img src={Logo} alt="Company Logo" className="h-30" />
+        <img src={Logo} alt="Company Logo" className="h-25" />
       </div>
 
       {/* Warranty Details */}

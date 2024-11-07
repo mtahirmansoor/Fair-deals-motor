@@ -7,7 +7,7 @@ import {
   FaEnvelope,
   FaPhone,
 } from "react-icons/fa"; // Import YouTube icon
-import Logo from "../assets/Logo/Logow.png";
+import Logo from "../assets/Logo/Logo1.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

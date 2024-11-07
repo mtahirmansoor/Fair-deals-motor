@@ -21,7 +21,7 @@ const EditCars = ({ carId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/cars/${carId}`)
+      .get(`http://localhost:5000/api/cars/${carId}`)
       .then((response) => {
         setCar(response.data);
         // Parse images safely, ensuring it's always an array

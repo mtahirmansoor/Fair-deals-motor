@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 const Stock = () => {
   const [cars, setCars] = useState([]);
@@ -9,7 +10,7 @@ const Stock = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/cars");
+        const response = await axios.get("http://localhost:5000/api/cars");
         const carsWithParsedImages = response.data.map((car) => ({
           ...car,
           images: Array.isArray(car.images)
@@ -30,7 +31,13 @@ const Stock = () => {
     fetchCars();
   }, []);
 
- 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="container mx-auto p-6">
@@ -44,7 +51,7 @@ const Stock = () => {
             <div className="flex-shrink-0">
               {Array.isArray(car.images) && car.images.length > 0 ? (
                 <img
-                  src={`http://localhost:3000/uploads/${car.images[0]}`} // First image
+                  src={`http://localhost:5000/uploads/${car.images[0]}`} // First image
                   alt={`Car ${car.make} ${car.model}`}
                   className="w-full h-48 object-cover"
                   onError={(e) => {
@@ -59,19 +66,31 @@ const Stock = () => {
             </div>
 
             <div className="p-4 flex-1">
-              <h2 className="text-2xl font-semibold text-gray-800">
-                {car.make} {car.model} ({car.year})
-              </h2>
-              <p className="text-gray-600 mt-1">
-                Price:{" "}
-                <span className="text-green-500 font-semibold">£{car.price}</span>
-              </p>
-              <p className="text-gray-600">Mileage: {car.mileage} miles</p>
+              <div className="flex justify-between items-center">
+                <h2 className="text-green-500  font-bold text-gray-800">
+               £{car.price}
+                </h2>
+                
+               
+              </div>
+              <p className="font-semibold text-xl">
+                {car.make} {car.model} ({car.year}) 
+                </p>
+              <p className="text-gray-600 mt-1">Mileage: {car.mileage} miles</p>
               <p className="text-gray-600">Color: {car.color}</p>
               <p className="text-gray-600">Fuel Type: {car.fuel_type}</p>
               <p className="text-gray-600">Condition: {car.carcondition}</p>
 
-             
+              <div className="mt-4">
+                <Link
+                  to={`/MoreInfo/${car.id}`} // Assuming the URL pattern for the car details page
+                  className="text-blue-500 hover:underline"
+                >
+                  <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                    More Info
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}

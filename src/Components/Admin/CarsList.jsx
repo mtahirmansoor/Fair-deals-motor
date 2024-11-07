@@ -9,7 +9,7 @@ const CarList = ({ onEdit }) => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/cars");
+        const response = await axios.get("http://localhost:5000/api/cars");
         const carsWithParsedImages = response.data.map((car) => ({
           ...car,
           images: Array.isArray(car.images)
@@ -32,7 +32,7 @@ const CarList = ({ onEdit }) => {
 
   const handleDelete = async (carId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/cars/${carId}`);
+      await axios.delete(`http://localhost:5000/api/cars/${carId}`);
       setCars(cars.filter((car) => car.id !== carId));
     } catch (err) {
       console.error("Error deleting car:", err);
@@ -62,7 +62,7 @@ const CarList = ({ onEdit }) => {
             <div className="flex-shrink-0">
               {Array.isArray(car.images) && car.images.length > 0 ? (
                 <img
-                  src={`http://localhost:3000/uploads/${car.images[0]}`} // First image
+                  src={`http://localhost:5000/uploads/${car.images[0]}`} // First image
                   alt={`Car ${car.make} ${car.model}`}
                   className="w-full h-48 object-cover"
                   onError={(e) => {
